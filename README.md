@@ -99,7 +99,7 @@ git commit -m "feat: inicial commit
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/lvsodre/site-curso-python/blob/main/LICENSE.txt) para mais detalhes.
 
 ## ✨ Melhorias Futuras
 
