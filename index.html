@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lvsodre TechPython</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #306998;
+            --secondary-color: #FFD43B;
+            --text-color: #333;
+            --bg-color: #f4f4f4;
+            --gradient-1: #306998;
+            --gradient-2: #FFD43B;
+            --gradient-3: #4B8BBE;
+            --gradient-4: #646464;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, var(--gradient-1), var(--gradient-2), var(--gradient-3), var(--gradient-4));
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Logo animation */
+        .logo-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            animation: floatAnimation 3s ease-in-out infinite;
+        }
+
+        @keyframes floatAnimation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            animation: popupAnimation 0.5s ease-out;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        @keyframes popupAnimation {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Header styles */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Hero section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem;
+        }
+
+        .hero-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            font-size: 1.5rem;
+            padding: 1rem 3rem;
+            margin: 2rem 0;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        /* Features sections */
+        .features-section {
+            padding: 6rem 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            margin: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Form styles */
+        .inscription-form {
+            max-width: 600px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        /* Statistics */
+        .stats {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            display: inline-block;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-button {
+                font-size: 1.2rem;
+                padding: 0.8rem 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Popup inicial -->
+    <div id="welcome-popup" class="popup">
+        <div class="popup-content">
+            <div class="logo-container">
+                <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="150" cy="150" r="145" fill="#306998" />
+                    <path d="M90 120 C90 80, 150 80, 150 120 L150 180 C150 220, 210 220, 210 180 L210 150" 
+                          stroke="#FFD43B" stroke-width="20" fill="none" />
+                    <path d="M70 90 L70 210 L120 210" 
+                          stroke="#FFD43B" stroke-width="15" fill="none" />
+                    <circle cx="230" cy="90" r="10" fill="#FFD43B" />
+                    <text x="150" y="270" 
+                          font-family="Arial" 
+                          font-size="24" 
+                          fill="#FFD43B" 
+                          text-anchor="middle" 
+                          font-weight="bold">techpython</text>
+                </svg>
+            </div>
+            <h2>Bem-vindo ao seu futuro em programação!</h2>
+            <p>Aprenda Python de forma prática e eficiente</p>
+            <button class="cta-button" onclick="closePopup()">Começar</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <svg viewBox="0 0 300 300" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="150" cy="150" r="145" fill="#306998" />
+                    <path d="M90 120 C90 80, 150 80, 150 120 L150 180 C150 220, 210 220, 210 180 L210 150" 
+                          stroke="#FFD43B" stroke-width="20" fill="none" />
+                    <path d="M70 90 L70 210 L120 210" 
+                          stroke="#FFD43B" stroke-width="15" fill="none" />
+                    <circle cx="230" cy="90" r="10" fill="#FFD43B" />
+                </svg>
+                lvsodre TechPython
+            </div>
+            <button class="cta-button" onclick="showInscriptionForm()" style="font-size: 1rem; padding: 0.5rem 1.5rem;">
+                Inscrever-se
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo-container">
+                <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="150" cy="150" r="145" fill="#306998" />
+                    <path d="M90 120 C90 80, 150 80, 150 120 L150 180 C150 220, 210 220, 210 180 L210 150" 
+                          stroke="#FFD43B" stroke-width="20" fill="none" />
+                    <path d="M70 90 L70 210 L120 210" 
+                          stroke="#FFD43B" stroke-width="15" fill="none" />
+                    <circle cx="230" cy="90" r="10" fill="#FFD43B" />
+                    <text x="150" y="270" 
+                          font-family="Arial" 
+                          font-size="24" 
+                          fill="#FFD43B" 
+                          text-anchor="middle" 
+                          font-weight="bold">TECHPYTHON</text>
+                </svg>
+            </div>
+            <h1>Aprenda Python do Zero ao Profissional</h1>
+            <p class="hero-subtitle">Transforme sua carreira com a linguagem mais versátil do mercado</p>
+            <button class="cta-button" onclick="showInscriptionForm()">COMECE AGORA!</button>
+            <div class="stats">
+                <h3>Já são <span id="enrolled-count">0</span> alunos inscritos!</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Mercado de Trabalho</h3>
+                <p>Salários médios acima de R$ 8.000 e alta demanda por profissionais qualificados em Python</p>
+            </div>
+            <div class="feature-card">
+                <h3>Aplicações Práticas</h3>
+                <p>Desenvolvimento Web, Machine Learning, Automação, Análise de Dados e muito mais</p>
+            </div>
+            <div class="feature-card">
+                <h3>Suporte Personalizado</h3>
+                <p>Mentoria individual, projetos práticos e material didático exclusivo</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Python no Dia a Dia -->
+    <section class="features-section">
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Análise de Dados</h3>
+                <p>Aprenda a processar grandes volumes de dados, criar visualizações e extrair insights valiosos para empresas</p>
+            </div>
+            <div class="feature-card">
+                <h3>Automação</h3>
+                <p>Crie scripts para automatizar tarefas repetitivas, aumentando sua produtividade no trabalho</p>
+            </div>
+            <div class="feature-card">
+                <h3>Inteligência Artificial</h3>
+                <p>Desenvolva modelos de IA, chatbots e sistemas de recomendação usando as principais bibliotecas</p>
+            </div>
+            <div class="feature-card">
+                <h3>Desenvolvimento Web</h3>
+                <p>Construa aplicações web completas usando frameworks modernos como Django e Flask</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulário de inscrição -->
+    <div id="inscription-form" class="inscription-form" style="display: none;">
+        <h2>Formulário de Inscrição</h2>
+        <form id="course-form" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label for="name">Nome completo:</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Telefone:</label>
+                <input type="tel" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label>Forma de pagamento:</label>
+                <div class="payment-methods">
+                    <div class="payment-option" onclick="selectPayment('credit')">
+                        <h4>Cartão de Crédito</h4>
+                        <p>Em até 12x</p>
+                    </div>
+                    <div class="payment-option" onclick="selectPayment('pix')">
+                        <h4>PIX</h4>
+                        <p>10% de desconto</p>
+                    </div>
+                    <div class="payment-option" onclick="selectPayment('boleto')">
+                        <h4>Boleto</h4>
+                        <p>5% de desconto</p>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="cta-button">Confirmar Inscrição</button>
+        </form>
+    </div>
+
+    <script>
+        // Contador de inscritos (simulado)
+        let enrolledCount = 157;
+        document.getElementById('enrolled-count').textContent = enrolledCount;
+
+        // Mostrar popup ao carregar a página
+        window.onload = function() {
+            document.getElementById('welcome-popup').style.display = 'flex';
+            console.log('Form element:', document.getElementById('inscription-form')); // Debug
+        }
+
+        // Fechar popup
+        function closePopup() {
+            document.getElementById('welcome-popup').style.display = 'none';
+        }
+
+        // Mostrar formulário de inscrição
+        function showInscriptionForm() {
+            const form = document.getElementById('inscription-form');
+            if(form) {
+                form.style.display = 'block';
+                form.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                console.error('Formulário não encontrado');
+            }
+        }
+
+        // Selecionar método de pagamento
+        function selectPayment(method) {
+            const options = document.querySelectorAll('.payment-option');
+            options.forEach(opt => opt.style.border = '1px solid #ddd');
+            event.currentTarget.style.border = '2px solid var(--primary-color)';
+        }
+
+        // Gerar PDF de confirmação
+        function generatePDF(userData) {
+            const content = document.createElement('div');
+            content.innerHTML = `
+                <h2>Confirmação de Inscrição - lvsodre TechPython</h2>
+                <p>Nome: ${userData.name}</p>
+                <p>E-mail: ${userData.email}</p>
+                <p>Telefone: ${userData.phone}</p>
+                <p>Data: ${new Date().toLocaleDateString()}</p>
+            `;
+
+            const opt = {
+                margin: 1,
+                filename: 'confirmacao-inscricao.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(content).save();
+        }
+
+        // Manipular envio do formulário
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const userData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value
+            };
+            
+            // Gerar PDF
+            generatePDF(userData);
+            
+            // Atualizar contador
+            enrolledCount++;
+            document.getElementById('enrolled-count').textContent = enrolledCount;
+            
+            // Limpar formulário e fechar
+            event.target.reset();
+            document.getElementById('inscription-form').style.display = 'none';
+            
+            // Mostrar mensagem de sucesso
+            alert('Inscrição realizada com sucesso! O PDF de confirmação será baixado automaticamente.');
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer style="background: rgba(0, 0, 0, 0.9); color: white; padding: 2rem; text-align: center; margin-top: 4rem;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="logo-container" style="width: 80px; height: 80px; margin: 0 auto 1rem;">
+                <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="150" cy="150" r="145" fill="#306998" />
+                    <path d="M90 120 C90 80, 150 80, 150 120 L150 180 C150 220, 210 220, 210 180 L210 150" 
+                          stroke="#FFD43B" stroke-width="20" fill="none" />
+                    <path d="M70 90 L70 210 L120 210" 
+                          stroke="#FFD43B" stroke-width="15" fill="none" />
+                    <circle cx="230" cy="90" r="10" fill="#FFD43B" />
+                </svg>
+            </div>
+            <p style="margin-bottom: 1rem;">lvsodre - Transformando conhecimento em oportunidades</p>
+            <p style="font-size: 0.9rem; color: #888;">© 2025 lvsodre. Todos os direitos reservados.</p>
+            <div class="social-icons" style="margin-top: 2rem;">
+                <a href="https://facebook.com" target="_blank" style="color: white; margin: 0 1rem; text-decoration: none; opacity: 0.8; transition: opacity 0.3s;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <a href="https://instagram.com" target="_blank" style="color: white; margin: 0 1rem; text-decoration: none; opacity: 0.8; transition: opacity 0.3s;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a href="https://linkedin.com" target="_blank" style="color: white; margin: 0 1rem; text-decoration: none; opacity: 0.8; transition: opacity 0.3s;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+                <a href="https://github.com" target="_blank" style="color: white; margin: 0 1rem; text-decoration: none; opacity: 0.8; transition: opacity 0.3s;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                </a>
+                <a href="https://youtube.com" target="_blank" style="color: white; margin: 0 1rem; text-decoration: none; opacity: 0.8; transition: opacity 0.3s;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
