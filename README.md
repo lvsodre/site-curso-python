@@ -113,14 +113,10 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.c
 
 ## 👥 Autor
 
-**lvsodre** - [GitHub](https://github.com/lvsodre)
-
-## 📞 Contato
-
-Para sugestões, dúvidas ou colaborações, entre em contato através das redes sociais disponíveis no footer do site.
+**lvsodre** - [GitHub](https://github.com/lvsodre)
 
 ## 🙏 Agradecimentos
 
 - Comunidade Python
 - Contribuidores de bibliotecas open source
-- Designer e desenvolvedores que inspiraram o projeto
+- Eu mesmo! 😊
